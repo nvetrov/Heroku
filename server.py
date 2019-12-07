@@ -4,13 +4,15 @@
 #  сервера" (на стороне Bottle это может быть просто RuntimeError), то есть HTTP ответ со статусом 500
 
 # heroku config:set APP_LOCATION=heroku
-# heroku ps:scale web=1
 # git push heroku master
+# heroku ps:scale web=1
+
+
 
 import os
 
 import sentry_sdk
-from bottle import Bottle, run, route
+from bottle import Bottle
 from sentry_sdk.integrations.bottle import BottleIntegration
 
 # with open("dsn", "r") as f:
@@ -27,7 +29,7 @@ app = Bottle()
 
 
 def generate_message():
-    return "Тестируем эту дрянь"
+    return "Тестируем приложение..."
 
 
 def success_message():
