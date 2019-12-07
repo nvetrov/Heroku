@@ -2,6 +2,11 @@
 #  вашу информационную панель Sentry. Приложение должно размещаться на Heroku, иметь минимум два маршрута: /success,
 #  который должен возвращать как минимум HTTP ответ со статусом 200 OK /fail, который должен возвращать "ошибку
 #  сервера" (на стороне Bottle это может быть просто RuntimeError), то есть HTTP ответ со статусом 500
+
+# heroku config:set APP_LOCATION=heroku
+# heroku ps:scale web=1
+# git push heroku master
+
 import os
 
 import sentry_sdk
@@ -39,7 +44,6 @@ if os.environ.get("APP_LOCATION") == "heroku":
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 5000)),
         server="gunicorn",
-        workers=3,
-    )
+        workers=3,   )
 else:
     run(host="localhost", port=8080, debug=True)
