@@ -10,7 +10,7 @@
 import os
 
 import sentry_sdk
-from bottle import Bottle, run
+from bottle import Bottle, run, route
 from sentry_sdk.integrations.bottle import BottleIntegration
 
 # with open("dsn", "r") as f:
@@ -26,9 +26,79 @@ sentry_sdk.init(
 app = Bottle()
 
 
-@app.route('/success')
+def generate_message():
+    return "Тестируем эту дрянь"
+
+
+def success_message():
+    return "Победа"
+
+
+def fail_message():
+    return "Ошибка"
+
+
+@route("/")
+def index():
+    html = """
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Heroku </title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Проверь меня!</h1>
+      <p>{}</p>
+    </div>
+  </body>
+</html>
+""".format(
+        generate_message()
+    )
+    return html
+
+
+@app.route("/success")
 def success():
-    return
+    html_success = """
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <title>Heroku </title>
+      </head>
+      <body>
+        <div class="container">
+          <h1>This is success!</h1>
+          <p>{}</p>        
+        </div>
+      </body>
+    </html>
+    """.format(
+        success_message()
+    )
+    return html_success
+
+
+@app.route("/")
+def index():
+    html = """
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Heroku </title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Проверь меня!</h1>
+      <p>{}</p>
+    </div>
+  </body>
+</html>
+""".format(
+        generate_message()
+    )
+    return html
 
 
 @app.route('/fail')
@@ -36,7 +106,6 @@ def fail():
     raise RuntimeError("There is an error!")
 
 
-#
 # app.run(host='localhost', port=8080)
 
 if os.environ.get("APP_LOCATION") == "heroku":
@@ -46,4 +115,4 @@ if os.environ.get("APP_LOCATION") == "heroku":
         server="gunicorn",
         workers=3, )
 else:
-    run(host="localhost", port=8080, debug=True)
+    app.run(host='127.0.0.1', port=8080, debug=True)
