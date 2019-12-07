@@ -11,10 +11,10 @@ from sentry_sdk.integrations.bottle import BottleIntegration
 # with open("dsn", "r") as f:
 #     your_dsn = f.read()
 
-your_dsn = input("Paste your dsn here:")
+# your_dsn = input("Paste your dsn here:")
 
 sentry_sdk.init(
-    dsn=your_dsn,
+    dsn="https://79a87c759b5247dd8bf8a9770cc74cf6@sentry.io/1832381",
     integrations=[BottleIntegration()]
 )
 
