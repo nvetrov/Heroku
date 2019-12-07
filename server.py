@@ -38,27 +38,6 @@ def fail_message():
     return "Ошибка"
 
 
-@route("/")
-def index():
-    html = """
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Heroku </title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Проверь меня!</h1>
-      <p>{}</p>
-    </div>
-  </body>
-</html>
-""".format(
-        generate_message()
-    )
-    return html
-
-
 @app.route("/success")
 def success():
     html_success = """
