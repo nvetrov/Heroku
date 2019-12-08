@@ -29,7 +29,7 @@ app = Bottle()
 
 
 def generate_message():
-    return "Тестируем приложение..."
+    return "Тестируе: /success  or /fail "
 
 
 def success_message():
